@@ -12,3 +12,5 @@ INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 2);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 1);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 2);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 3);
+
+INSERT INTO tb_course (name, img_Uri, img_Gray_Uri) VALUES ('Bootcamp HTML', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ1vGLoOegt5KuNntjFXvFhTDTxxY1I2ycnxw&usqp=CAU', 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/adf3797636141.560aeecc96282.jpg');  
