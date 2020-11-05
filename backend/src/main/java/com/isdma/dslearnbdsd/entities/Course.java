@@ -1,13 +1,13 @@
 package com.isdma.dslearnbdsd.entities;
-
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,7 +22,8 @@ public class Course implements Serializable{
 	private String imgUri; //o sql ficara img_Uri, ele converte camelCase para snake_Case
 	private String imgGrayUri;
 	
-	//private Set<Offer> offers = new HashSet<>();
+	@OneToMany(mappedBy = "course")
+	private List<Offer> offers = new ArrayList<>();
 	
 	public Course(){
 		
@@ -67,6 +68,11 @@ public class Course implements Serializable{
 	public void setImgGrayUri(String imgGrayUri) {
 		this.imgGrayUri = imgGrayUri;
 	}
+	
+
+	/*public List<Offer> getOffers() {
+		return offers;
+	}*/
 
 	@Override
 	public int hashCode() {
