@@ -1,10 +1,13 @@
 package com.isdma.dslearnbdsd.entities;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.isdma.dslearnbdsd.entities.pk.EnrollmentPK;
@@ -21,6 +24,9 @@ public class Enrollment {
 	private Instant refundMoment;
 	private boolean available; //boolean unico caso que usamos o tipo basico (letra minuscula) que é true or false, senao para todos os outros tipos usamos o wrapper que nos dá tambem a opção NULL, a não ser que precisamos de usar true false ou null nesse caso entao seria Boolean
 	private boolean onlyUpdate;
+	
+	@ManyToMany(mappedBy = "enrollmentsDone")
+	private Set<Lesson> lessonsDone = new HashSet<>();
 	
 	public Enrollment() {
 		
