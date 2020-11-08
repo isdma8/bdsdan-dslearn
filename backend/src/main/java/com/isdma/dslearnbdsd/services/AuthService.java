@@ -22,8 +22,6 @@ public class AuthService {
 	public User authenticated() { //que user está autenticado?
 		
 		try {
-			
-	
 			String username = SecurityContextHolder.getContext().getAuthentication().getName(); //pega nome do user que foi reconecido pelo spring security
 	
 			return userRepository.findByEmail(username);
