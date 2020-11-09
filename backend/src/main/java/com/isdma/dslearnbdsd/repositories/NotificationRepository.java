@@ -19,5 +19,7 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
 			+ "ORDER BY obj.moment DESC")
 	Page<Notification> find(User user, boolean unreadOnly, Pageable pageable);
 	
+	//Page<Notification> findByUserAndReadOrderByMomentDesc(User user, boolean unreadOnly, Pageable pageable); //so com este nome o Spring JPA converteria para a consulta de cima mas nao podemos fazer por esta forma facilitada porque precisamos do macete do Read
+	
 
 }

@@ -1,7 +1,9 @@
 package com.isdma.dslearnbdsd.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -14,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 //isto vai fazer uma tabela de associação porque é muitos para muitos mas neste caso entre esta tabela e uma tabela que no funddo é tambem ela uma tabela de associação mas que não bastou definir assim entre user e offer porque precisamos nesse caso de campos adicionais e por isso criamos a tabela senao bastava definir assim se so quisermos a associação que apenas gera tabela de ids relacionados
@@ -32,6 +35,9 @@ public abstract class Lesson implements Serializable{ //compilador nao deixara i
 	@ManyToOne 
 	@JoinColumn(name = "section_id") 
 	private Section section;
+	
+	@OneToMany(mappedBy = "lesson")
+	private List<Deliver> deliveries = new ArrayList<>();
 	
 	@ManyToMany   //nao metemos o fetch para nao carregar automaticamente as informações de quem acabou a lição 	
 	@JoinTable(name="tb_lessons_done",
@@ -89,6 +95,10 @@ public abstract class Lesson implements Serializable{ //compilador nao deixara i
 
 	public Set<Enrollment> getEnrollmentsDone() {
 		return enrollmentsDone;
+	}
+	
+	public List<Deliver> getDeliveries() {
+		return deliveries;
 	}
 
 	@Override

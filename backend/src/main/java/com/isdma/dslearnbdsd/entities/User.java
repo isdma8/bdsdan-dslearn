@@ -52,12 +52,13 @@ public class User implements UserDetails, Serializable{
 		
 	}
 
-	public User(Long id, String name, String email, String password) {
+	public User(Long id, String name, String email, String password, Set<Role> roles) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
+		this.roles = roles;
 	}
 
 	public Long getId() {
@@ -91,6 +92,15 @@ public class User implements UserDetails, Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public List<Notification> getNotifications() {
+		return notifications;
+	}
+
 
 	@Override
 	public int hashCode() {

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -47,6 +48,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Autowired
 	private JwtTokenEnhancer tokenEnhancer; //para adicionarmos coisas ao token injetamos a classe criada
 	
+	@Autowired
+	private UserDetailsService userDetailsService;
+	
 	
 	//Aqui temos os 4 beans que precisamos e que criamos na classe AppConfig e websecurityconfig
 	
@@ -61,8 +65,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		.withClient(clientId) //frontend tem de informar destes dados da aplicação no token para ter acesso
 		.secret(passwordEncoder.encode(clientSecret))    //mais tarde iremos colocar em arquivo	
 		.scopes("read", "write") //tipo de acesso
-		.authorizedGrantTypes("password") //ha varios tipos no auth, temos de usar o que pretendemos, estao descritos no auth os existentes
-		.accessTokenValiditySeconds(jwtDuration); //1 dia em segundos em que o tokin é valido 86400
+		.authorizedGrantTypes("password", "refresh_token") //ha varios tipos no auth, temos de usar o que pretendemos, estao descritos no auth os existentes
+		.accessTokenValiditySeconds(jwtDuration) //1 dia em segundos em que o tokin é valido 86400
+		.refreshTokenValiditySeconds(jwtDuration);
 	}
 
 	@Override
@@ -75,7 +80,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		endpoints.authenticationManager(authenticationManager) //vai ser o bean que criei
 		.tokenStore(tokenStore) //vai ser o bean que injetamos tambem
 		.accessTokenConverter(accessTokenConverter)//outro que definimos 
-		.tokenEnhancer(chain); //assim passamos as nossas adições ao header do token
+		.tokenEnhancer(chain) //assim passamos as nossas adições ao header do toke
+		.userDetailsService(userDetailsService); //para o refreshtoken
 	}
 
 	
